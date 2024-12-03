@@ -1,7 +1,6 @@
 <?php
 namespace App\DTOs;
 
-use App\Helpers\MovieGenereHelper;
 use Carbon\Carbon;
 
 class MovieDTO
