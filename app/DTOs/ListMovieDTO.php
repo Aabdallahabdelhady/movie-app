@@ -10,6 +10,7 @@ class ListMovieDTO
     public array $genres,
     public int $id,
     public string $posterPath,
+    public string $searchPoster,
     public string $releaseDate,
     public string $title,
     public int $voteAverage,
@@ -21,7 +22,8 @@ public static function fromArray(array $data): self
     return new self(
         self::getGenreNames($data['genre_ids']) ,
         $data['id'] ,
-        "https://image.tmdb.org/t/p/w500/" . $data['poster_path'] ,
+        $data['poster_path'] ? 'https://image.tmdb.org/t/p/w500/' . $data['poster_path'] : '' ,
+        $data['poster_path'] ? 'https://image.tmdb.org/t/p/w92/' . $data['poster_path'] : '' ,
         Carbon::parse($data['release_date'])->format('M d, Y'),
         $data['title'] ,
         $data['vote_average'] * 10 ,

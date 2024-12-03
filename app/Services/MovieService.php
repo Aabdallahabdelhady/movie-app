@@ -43,7 +43,17 @@ class MovieService
   public function showDetails($movie_id)
   {
     $movieDetails = Http::withToken($this->token)->get($this->url. "movie/$movie_id?append_to_response=credits,videos,images")->json();
-    // dd($movieDetails);
     return MovieDTO::fromArray($movieDetails);
+  }
+
+
+  public function searchMovies($search)
+  {
+    $searchResults = Http::withToken($this->token)->get($this->url. "search/movie?query=$search")->json();
+    if(isset($searchResults['results']))
+    {
+      return collect(array_slice($searchResults['results'],0,7))->map(fn($movie) => ListMovieDTO::fromArray($movie));
+    }
+    return [];
   }
 }
