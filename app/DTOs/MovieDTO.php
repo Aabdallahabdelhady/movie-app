@@ -57,7 +57,8 @@ public static function getFirstFiveCasts($casts)
 public static function getFirstSixmages($images)
 {
     return array_map(fn($image) =>[
-        'path' => "https://image.tmdb.org/t/p/w500/" . $image['file_path']
+        'path' => "https://image.tmdb.org/t/p/w500" . $image['file_path'],
+        'original' =>  "https://image.tmdb.org/t/p/original" . $image['file_path'] 
     ],array_slice($images,0,9));
 }
 }
