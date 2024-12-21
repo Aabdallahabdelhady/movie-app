@@ -16,7 +16,7 @@ class MovieController extends Controller
     {
         $popularMovies = $this->movieService->getPopularMovies();
         $nowPlayingMovies = $this->movieService->getNowPlayingMovies();
-        return view('index',[
+        return view('movies.index',[
             'popularMovies' => $popularMovies,
             'nowPlayingMovies' => $nowPlayingMovies
         ]);
@@ -25,7 +25,7 @@ class MovieController extends Controller
     public function show($movie_id)
     {
         $movieDetails = $this->movieService->showDetails($movie_id);
-        return view('show',[
+        return view('movies.show',[
             'movieDetails' => $movieDetails
         ]);
     }

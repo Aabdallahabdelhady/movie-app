@@ -1,6 +1,8 @@
 <?php
 namespace App\Services;
 
+use App\DTOs\ActorDTO;
+use App\DTOs\ListActorDTO;
 use App\DTOs\ListMovieDTO;
 use App\DTOs\MovieDTO;
 use Illuminate\Support\Facades\Http;
@@ -55,5 +57,23 @@ class MovieService
       return collect(array_slice($searchResults['results'],0,7))->map(fn($movie) => ListMovieDTO::fromArray($movie));
     }
     return [];
+  }
+
+
+  public function getPopularActors($page = 1)
+  {
+    $popularActors = Http::withToken($this->token)->get($this->url . "person/popular?language=en-US&page=$page")->json();
+    if(isset($popularActors['results']))
+    {
+      return collect($popularActors['results'])->map(fn($actor) => ListActorDTO::fromArray($actor));
+    }
+    return [];
+  }
+
+
+  public function showActor($id)
+  {
+    $actor = Http::withToken($this->token)->get($this->url . "person/$id?append_to_response=external_ids,combined_credits")->json();
+    return ActorDTO::fromArray($actor);
   }
 }
