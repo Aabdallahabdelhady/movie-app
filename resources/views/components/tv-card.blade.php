@@ -1,10 +1,10 @@
 <div class="mt-8">
-    <a href="{{ route('movie.show', [$movie->id]) }}">
-        <img src="{{ $movie->posterPath }}" alt="poster" class="hover:opacity-75 transition ease-in-out duration-150" />
+    <a href="{{ route('tv.show', [$tvshow->id]) }}">
+        <img src="{{ $tvshow->posterPath }}" alt="poster" class="hover:opacity-75 transition ease-in-out duration-150" />
     </a>
 
     <div class="mt-2">
-        <a href="{{ route('movie.show', [$movie->id]) }}" class="text-lg mt-2 hover:text-gray-300">{{ $movie->title }}</a>
+        <a href="{{ route('tv.show', [$tvshow->id]) }}" class="text-lg mt-2 hover:text-gray-300">{{ $tvshow->name }}</a>
         <div class="flex items-center text-gray-400 text-sm mt-1">
             <svg class="fill-current text-orange-500 w-4" viewBox="0 0 24 24">
                 <g data-name="Layer 2">
@@ -13,12 +13,12 @@
                         data-name="star" />
                 </g>
             </svg>
-            <span class="ml-1">{{ $movie->voteAverage . '%' }}</span>
+            <span class="ml-1">{{ $tvshow->voteAverage . '%' }}</span>
             <span class="mx-2">|</span>
-            <span>{{ $movie->releaseDate }}</span>
+            <span>{{ $tvshow->firstAirDate }}</span>
         </div>
         <div class="text-gray-400 text-sm">
-            @foreach ($movie->genres as $genre)
+            @foreach ($tvshow->genres as $genre)
                 {{ $genre }}@if (!$loop->last)
                     ,
                 @endif

@@ -32,7 +32,7 @@ public static function fromArray(array $data): self
 
 public static function getGenreNames($genreIds): array
 {
-    return array_map(fn($id) => MovieGenereHelper::getGenreName($id), $genreIds);
+    return array_map(fn($id) => MovieGenereHelper::getMovieGenreName($id), $genreIds);
 }
 
 }

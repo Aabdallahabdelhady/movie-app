@@ -24,7 +24,7 @@ class MovieController extends Controller
 
     public function show($movie_id)
     {
-        $movieDetails = $this->movieService->showDetails($movie_id);
+        $movieDetails = $this->movieService->showMovieDetails($movie_id);
         return view('movies.show',[
             'movieDetails' => $movieDetails
         ]);

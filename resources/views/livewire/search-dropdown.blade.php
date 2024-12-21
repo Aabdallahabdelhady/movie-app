@@ -24,7 +24,7 @@
                 @if ($movies->count())
                     @foreach ($movies as $movie)
                         <li class="border-b border-gray-700">
-                            <a href="{{ route('movies.show', $movie->id) }}"
+                            <a href="{{ route('movie.show', $movie->id) }}"
                                 class="block hover:bg-gray-700 px-3 py-3 flex items-center"
                                 @if ($loop->last) @keydown.tab="isOpen = false" @endif>
                                 @if ($movie->posterPath)
