@@ -48,6 +48,7 @@ public static function getFirstTwoCrews($crews)
 public static function getFirstFiveCasts($casts)
 {
     return array_map(fn($crew) =>[
+        'id' => $crew['id'],
         'name' =>  $crew['name'] ,
         'character' => $crew['character'],
         'profile_path' => "https://image.tmdb.org/t/p/w300/" . $crew['profile_path']

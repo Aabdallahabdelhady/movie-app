@@ -32,7 +32,7 @@
                 </li>
 
                 <li class="md:ml-6 mt-3 md:mt-0">
-                    <a href="#" class="text-gray-300">Actors</a>
+                    <a href="{{ route('actors.index') }}" class="text-gray-300">Actors</a>
                 </li>
             </ul>
             <div class="flex flex-col md:flex-row items-center">
@@ -49,6 +49,7 @@
     </nav>
     @yield('content')
     @livewireScripts
+    @yield('scripts')
 </body>
 
 </html>
