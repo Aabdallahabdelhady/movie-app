@@ -50,16 +50,18 @@ class ActorDTO
     static function getKnownForTitle($data)
     {
         $castMovies =  collect($data)->get('cast');
-        return collect($castMovies)->where('media_type','movie')
-                                   ->sortByDesc('popularity')
+        return collect($castMovies)->sortByDesc('popularity')
                                    ->take(5)
-                                   ->map(fn($movie) => 
-                                   (object)[
+                                   ->map(function($movie){ 
+                                   $name = self::getName($movie);
+                                   return (object)[
                                     'id' => $movie['id'],
+                                    'mediaType' => $movie['media_type'],
                                     'posterPath' => $movie['poster_path'] ?
                                     "https://image.tmdb.org/t/p/w185" . $movie['poster_path']: 'https://via.placeholder.com/185x278' , 
-                                    'title' => isset($movie['title']) ? $movie['title'] : 'untitled'
-                                   ] 
+                                    'title' => $name 
+                                   ] ;
+                                }
                                 );
     }
 
@@ -67,12 +69,13 @@ class ActorDTO
     static function credits($data)
     {
         $castMovies =  collect($data)->get('cast');
-        return collect($castMovies)->where('media_type','movie')
-                                   ->sortByDesc('release_date')
+        return collect($castMovies)->sortByDesc('release_date')
                                    ->map(function($movie){
                                     $releasDate = self::getCreditReleaseDate($movie);
-                                    $name = self::getCreditName($movie);
+                                    $name = self::getName($movie);
                                    return  (object)[
+                                        'id' => $movie['id'],
+                                        'mediaType' => $movie['media_type'],
                                         'releaseYear' => $releasDate ? Carbon::parse($releasDate)->format('Y') : 'Future',
                                         'title' => $name,
                                         'character' => isset($movie['character']) ? $movie['character'] : '',
@@ -91,7 +94,7 @@ class ActorDTO
         };
     }
 
-    public static function getCreditName($data)
+    public static function getName($data)
     {
         return match (true) {
             isset($data['title']) => $data['title'],

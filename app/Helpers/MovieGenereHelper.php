@@ -3,7 +3,7 @@ namespace App\Helpers;
 
 class MovieGenereHelper
 {
-  public static $generes = [
+  public static $movieGenres = [
     28 => "Action",
     12 => "Adventure",
     16 => "Animation",
@@ -25,8 +25,32 @@ class MovieGenereHelper
     37 => "Western",
   ];
 
-   static function getGenreName($id)
+  public static $tvGenres= [
+    10759 => "Action & Adventure",
+    16 => "Animation",
+    35 => "Comedy",
+    80 => "Crime",
+    99 => "Documentary",
+    18 => "Drama",
+    10751 => "Family",
+    10762 => "Kids",
+    9648 => "Mystery",
+    10763 => "News",
+    10764 => "Reality",
+    10765 => "Sci-Fi & Fantasy",
+    10766 => "Soap",
+    10767 => "Talk",
+    10768 => "War & Politics",
+    37 => "Western",
+  ];
+
+   static function getMovieGenreName($id)
   {
-    return isset(self::$generes[$id]) ? self::$generes[$id] : '';
+    return isset(self::$movieGenres[$id]) ? self::$movieGenres[$id] : '';
+  }
+
+  static function getTVGenreName($id)
+  {
+    return isset(self::$tvGenres[$id]) ? self::$tvGenres[$id] : '';
   }
 }

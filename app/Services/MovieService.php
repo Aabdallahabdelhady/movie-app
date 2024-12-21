@@ -1,10 +1,12 @@
 <?php
 namespace App\Services;
 
+use App\DTOs\ListTVShowDTO;
 use App\DTOs\ActorDTO;
 use App\DTOs\ListActorDTO;
 use App\DTOs\ListMovieDTO;
 use App\DTOs\MovieDTO;
+use App\DTOs\TVShowDTO;
 use Illuminate\Support\Facades\Http;
 
 class MovieService
@@ -42,7 +44,7 @@ class MovieService
   }
 
 
-  public function showDetails($movie_id)
+  public function showMovieDetails($movie_id)
   {
     $movieDetails = Http::withToken($this->token)->get($this->url. "movie/$movie_id?append_to_response=credits,videos,images")->json();
     return MovieDTO::fromArray($movieDetails);
@@ -76,4 +78,33 @@ class MovieService
     $actor = Http::withToken($this->token)->get($this->url . "person/$id?append_to_response=external_ids,combined_credits")->json();
     return ActorDTO::fromArray($actor);
   }
+
+  public function getPopularTvShows($page = 1)
+  {
+      $popularTvs = Http::withToken($this->token)->get($this->url . "tv/popular?language=en-US&page=$page")->json();
+      if(isset($popularTvs['results']))
+      {
+        return collect($popularTvs['results'])->map(fn($movie) => ListTVShowDTO::fromArray($movie));
+      }
+      return [];
+  }
+
+  public function getTopRatedTvShows($page = 1)
+  {
+      $topRatedTvs = Http::withToken($this->token)->get($this->url . "tv/top_rated?language=en-US&page=$page")->json();
+      if(isset($topRatedTvs['results']))
+      {
+        return collect($topRatedTvs['results'])->map(fn($movie) => ListTVShowDTO::fromArray($movie));
+      }
+      return [];
+  }
+
+
+  public function showTVDetails($movie_id)
+  {
+    $tvShoweDetails = Http::withToken($this->token)->get($this->url. "tv/$movie_id?append_to_response=credits,videos,images")->json();
+    // dd($tvShoweDetails);
+    return TVShowDTO::fromArray($tvShoweDetails);
+  }
+
 }

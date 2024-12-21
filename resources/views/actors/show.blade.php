@@ -75,14 +75,14 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
                     @foreach ($actor->knowForMovies as $movie)
                         <div class="mt-4">
-                            <a href="{{ route('movies.show', $movie->id) }}" target="_blank"><img
-                                    src="{{ $movie->posterPath }}" alt="poster"
-                                    class="hover:opacity-75 transition ease-in-out duration-150"></a>
-                            <a href="{{ route('movies.show', $movie->id) }}" target="_blank"
+                            <a href="{{ route($movie->mediaType . '.show', $movie->id) }}" target="_blank">
+                                <img src="{{ $movie->posterPath }}" alt="poster"
+                                    class="hover:opacity-75 transition ease-in-out duration-150">
+                            </a>
+                            <a href="{{ route('movie.show', $movie->id) }}" target="_blank"
                                 class="text-sm leading-normal block text-gray-400 hover:text-white mt-1">{{ $movie->title }}</a>
                         </div>
                     @endforeach
-
                 </div>
 
             </div>
@@ -96,7 +96,8 @@
                 @foreach ($actor->credits as $credit)
                     <li>{{ $credit->releaseYear }}
                         &middot;
-                        <strong><a href="" class="hover:underline">{{ $credit->title }}</a></strong>
+                        <strong><a href="{{ route($credit->mediaType . '.show', $credit->id) }}" target="_blank"
+                                class="hover:underline">{{ $credit->title }}</a></strong>
                         as {{ $credit->character }}
                     </li>
                 @endforeach
